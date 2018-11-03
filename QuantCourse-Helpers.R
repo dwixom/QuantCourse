@@ -26,7 +26,8 @@ getPriceData <- function(tickers, maxDate){
 # Returns an updated prices object
 enforcePricingCutoffDate <- function(prices, cutoff_date){
   # Check arguments
-  if(sum(!sapply(prices, is.xts)) > 0) stop("Please pass all valid xts objects into the prices argument")
+  if(class(prices) != "list") stop("Please pass prices as a list of valid XTS objects")
+  if(sum(!sapply(prices, is.xts)) > 0) stop("Please pass prices as a list of valid XTS objects")
   if(class(cutoff_date) != "Date") stop("Please pass a valid cutoff_date Date arg")
   
   # Describe pricing information
@@ -69,11 +70,12 @@ prettyReturnPlot <- function(R, main="Series Cumulative Returns"){
   }
 }
 
-# Function to create a combined returns object from adjusted prices
+# Function to create a combined returns object from a list of adjusted prices
 createCombinedReturns <- function(prices){
   
-  # Check args
-  if(!is.xts(prices)) stop("Please pass a valid XTS object")
+  # Check arguments
+  if(class(prices) != "list") stop("Please pass prices as a list of valid XTS objects")
+  if(sum(!sapply(prices, is.xts)) > 0) stop("Please pass prices as a list of valid XTS objects")
   
   # Merge prices
   combined_prices <- do.call(merge, lapply(prices, Ad))
