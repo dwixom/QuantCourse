@@ -46,7 +46,7 @@ enforcePricingCutoffDate <- function(prices, cutoff_date){
 }
 
 # Plot an xts of returns with a max argument
-prettyReturnPlot <- function(R){
+prettyReturnPlot <- function(R, main="Series Cumulative Returns"){
   
   # Check args
   if(!is.xts(R)) stop("Please pass a valid XTS object")
@@ -65,7 +65,7 @@ prettyReturnPlot <- function(R){
     plot_colset <- plot_colset[plot_col_ind]
     
     # Run the plot
-    chart.CumReturns(R, legend.loc = "topleft", ylab="Cumulative Return", lty=plot_lty, main="Series Cumulative Returns", colorset = plot_colset, lwd=2)
+    chart.CumReturns(R, legend.loc = "topleft", ylab="Cumulative Return", lty=plot_lty, main=main, colorset = plot_colset, lwd=2)
   }
 }
 
