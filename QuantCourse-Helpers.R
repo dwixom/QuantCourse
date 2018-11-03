@@ -45,4 +45,28 @@ enforcePricingCutoffDate <- function(prices, cutoff_date){
   return(prices)
 }
 
+# Plot an xts of returns with a max argument
+prettyReturnPlot <- function(R){
+  
+  # Check args
+  if(!is.xts(R)) stop("Please pass a valid XTS object")
+  
+  # Get charting parameters
+  num_series <- ncol(R)
+  max_colors <- min(num_series, 8)+2
+  if(num_series > max_colors*2){
+    warning("Too many series to chart. Max is ",max_colors*2)
+  } else {
+    plot_colset <- c(brewer.pal("Dark2",n=min(max_colors, 8)),"blue","red")
+    plot_lty <- ifelse(1:num_series > max_colors, 3, 1)
+    plot_lwd <- ifelse(1:num_series > max_colors, 3, 1)
+    plot_col_ind <- seq(1, num_series, by=1)
+    plot_col_ind[plot_col_ind > max_colors] <- plot_col_ind[plot_col_ind > max_colors] - max_colors
+    plot_colset <- plot_colset[plot_col_ind]
+    
+    # Run the plot
+    chart.CumReturns(R, legend.loc = "topleft", ylab="Cumulative Return", lty=plot_lty, main="Series Cumulative Returns", colorset = plot_colset, lwd=2)
+  }
+}
+
 ########## END HELPER FUNCTIONS ##########
