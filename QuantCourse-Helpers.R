@@ -69,4 +69,20 @@ prettyReturnPlot <- function(R){
   }
 }
 
+# Function to create a combined returns object from adjusted prices
+createCombinedReturns <- function(prices){
+  
+  # Check args
+  if(!is.xts(prices)) stop("Please pass a valid XTS object")
+  
+  # Merge prices
+  combined_prices <- do.call(merge, lapply(prices, Ad))
+  colnames(combined_prices) <- names(prices)
+  
+  # Calculate returns
+  combined_returns <- ROC(combined_prices, type="discrete", na.pad=F)
+  
+  return(combined_returns)
+}
+
 ########## END HELPER FUNCTIONS ##########
