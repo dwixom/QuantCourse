@@ -1,6 +1,8 @@
 # Required libraries
 require("quantmod")
 require("lubridate")
+require("PerformanceAnalytics")
+require("RColorBrewer")
 
 ########## BEGIN HELPER FUNCTIONS ##########
 
