@@ -43,8 +43,12 @@ enforcePricingCutoffDate <- function(prices, cutoff_date){
     message("Dropping ",num_invalid," securitie(s) which don't make the cutoff date of ",cutoff_date,":")
     message(paste0(names(prices)[!valid_securities], collapse=", "))
     prices <- prices[valid_securities]
-    prices <- lapply(prices, function(d) d[index(d) >= cutoff_date,])
   }
+  
+  # Enforce the cutoff date
+  prices <- lapply(prices, function(d) d[index(d) >= cutoff_date,])
+  
+  # Return the validated prices
   return(prices)
 }
 
